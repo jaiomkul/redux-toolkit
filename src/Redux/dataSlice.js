@@ -5,14 +5,14 @@ const initialState = {
 };
 
 const dataSlice = createSlice({
-  name: "testing",
+  name: "data",
   initialState,
   reducers: {
     increment: (state) => {
-      state.value = +1;
+      state.value += 1;
     },
     decrement: (state) => {
-      state.value = -1;
+      state.value -= 1;
     },
   },
 });

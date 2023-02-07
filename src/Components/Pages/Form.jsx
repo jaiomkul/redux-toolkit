@@ -1,4 +1,6 @@
 export const FormData = () => {
+
+  
   return (
     <div className="formdata">
       <h2>User Details</h2>
