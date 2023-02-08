@@ -1,10 +1,17 @@
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 // Thunks
-export const fetchProducts = createAsyncThunk("products/fetch", async () => {
-  const res = await fetch("http://localhost:8080/form");
-  const data = await res.json();
-  return data;
+export const postFormApi = createAsyncThunk("form/post", async (body) => {
+  const res = await fetch("http://localhost:8080/news", {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  // const data = await res.json();
+  // return data;
+  return res;
 });
 
 export const STATUSES = Object.freeze({
@@ -13,10 +20,10 @@ export const STATUSES = Object.freeze({
   LOADING: "loading",
 });
 
-const productSlice = createSlice({
+const postSlice = createSlice({
   name: "product",
   initialState: {
-    data: [],
+    post: [],
     status: STATUSES.IDLE,
   },
   reducers: {
@@ -29,18 +36,16 @@ const productSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchProducts.pending, (state, action) => {
+      .addCase(postFormApi.pending, (state, action) => {
         state.status = STATUSES.LOADING;
       })
-      .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.data = action.payload;
+      .addCase(postFormApi.fulfilled, (state, action) => {
+        state.post.push(action.payload);
         state.status = STATUSES.IDLE;
       })
-      .addCase(fetchProducts.rejected, (state, action) => {
+      .addCase(postFormApi.rejected, (state, action) => {
         state.status = STATUSES.ERROR;
       });
   },
 });
-
-export const { setProducts, setStatus } = productSlice.actions;
-export default productSlice.reducer;
+export default postSlice.reducer;

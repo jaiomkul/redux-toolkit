@@ -5,7 +5,7 @@ import { getPostApi, initialStatuses } from "../../Redux/postSlice";
 export const Post = () => {
   const dispatch = useDispatch();
   const { data, status } = useSelector((state) => state.post);
-  console.log("Hiii", data);
+  // console.log("Hiii", data);
 
   useEffect(() => {
     dispatch(getPostApi());

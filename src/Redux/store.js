@@ -6,5 +6,6 @@ export const store = configureStore({
   reducer: {
     post: postSlice,
     data: dataSlice,
+    form: postSlice,
   },
 });
